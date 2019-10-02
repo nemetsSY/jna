@@ -257,10 +257,22 @@ public interface Variant {
             this();
             this.setValue(VT_R4, value);
         }
-
+        
+        public VARIANT(FloatByReference value) {
+            this();
+            this.setValue(VT_R4 | VT_BYREF, value);
+             
+        }
+        
         public VARIANT(double value) {
             this();
             this.setValue(VT_R8, value);
+        }
+        
+        public VARIANT(DoubleByReference value) {
+            this();
+            this.setValue(VT_R8 | VT_BYREF, value);
+             
         }
 
         /**
