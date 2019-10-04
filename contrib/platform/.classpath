@@ -4,6 +4,7 @@
 	<classpathentry kind="src" output="build.eclipse/contrib-test-classes" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/jnalib"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/jnalib"/>
+	<classpathentry kind="lib" path="C:/Users/nemets_sy/git/jna/dist/win32-x86-64.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

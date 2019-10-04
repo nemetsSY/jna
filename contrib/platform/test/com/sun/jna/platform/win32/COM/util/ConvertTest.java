@@ -38,7 +38,12 @@ import com.sun.jna.platform.win32.WinDef.BOOL;
 import com.sun.jna.platform.win32.WinDef.BYTE;
 import com.sun.jna.platform.win32.WinDef.CHAR;
 import com.sun.jna.platform.win32.WinDef.LONG;
+import com.sun.jna.platform.win32.WinDef.LONGByReference;
 import com.sun.jna.platform.win32.WinDef.SHORT;
+import com.sun.jna.ptr.ByteByReference;
+import com.sun.jna.ptr.LongByReference;
+import com.sun.jna.ptr.ShortByReference;
+
 import java.util.Date;
 import org.junit.AfterClass;
 import org.junit.Test;
@@ -297,6 +302,44 @@ public class ConvertTest {
         assertTrue(app.DriveExistsPrimitive("C:"));
         assertTrue(app.DriveExistsObject("C:"));
         app.DriveExistsVoid("C:");
+    }
+    
+    @Test
+    public void testByReferenceTypes() {
+    	LongByReference testLONG = new LongByReference(42);
+        VARIANT resultLONG = Convert.toVariant(testLONG);
+        assertEquals(42, resultLONG.longValue());
+        assertEquals(Integer.class, Convert.toJavaObject(resultLONG, Object.class, fact, false, false).getClass());
+        assertEquals(42, Convert.toJavaObject(resultLONG, int.class, fact, false, false));
+        assertEquals(42, Convert.toJavaObject(resultLONG, Integer.class, fact, false, false));
+
+        ShortByReference testSHORT = new ShortByReference((short) 42);
+        VARIANT resultSHORT = Convert.toVariant(testSHORT);
+        assertEquals(42, resultSHORT.longValue());
+        assertEquals(Short.class, Convert.toJavaObject(resultSHORT, Object.class, fact, false, false).getClass());
+        assertEquals((short) 42, Convert.toJavaObject(resultSHORT, short.class, fact, false, false));
+        assertEquals((short) 42, Convert.toJavaObject(resultSHORT, Short.class, fact, false, false));
+
+        ByteByReference testBYTE = new ByteByReference((byte)42);
+        VARIANT resultBYTE = Convert.toVariant(testBYTE);
+        Byte testByteObj = 42;
+        VARIANT resultByteObj = Convert.toVariant(testByteObj);
+        byte testByte = 42;
+        VARIANT resultByte = Convert.toVariant(testByte);
+
+        assertEquals(42, resultBYTE.longValue());
+        assertEquals(42, resultByteObj.longValue());
+        assertEquals(42, resultByte.longValue());
+        assertEquals(Byte.class, Convert.toJavaObject(resultBYTE, Object.class, fact, false, false).getClass());
+        assertEquals(Byte.class, Convert.toJavaObject(resultByteObj, Object.class, fact, false, false).getClass());
+        assertEquals(Byte.class, Convert.toJavaObject(resultByte, Object.class, fact, false, false).getClass());
+        assertEquals((byte) 42, Convert.toJavaObject(resultBYTE, byte.class, fact, false, false));
+        assertEquals((byte) 42, Convert.toJavaObject(resultByteObj, byte.class, fact, false, false));
+        assertEquals((byte) 42, Convert.toJavaObject(resultByte, byte.class, fact, false, false));
+        assertEquals((byte) 42, Convert.toJavaObject(resultBYTE, Byte.class, fact, false, false));
+        assertEquals((byte) 42, Convert.toJavaObject(resultByteObj, Byte.class, fact, false, false));
+        assertEquals((byte) 42, Convert.toJavaObject(resultByte, Byte.class, fact, false, false));
+
     }
 }
 
